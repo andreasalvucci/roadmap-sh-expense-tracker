@@ -1,6 +1,7 @@
 import argparse
 import json
 import datetime
+from Expense import Expense
 
 def main():
     parser = argparse.ArgumentParser()
@@ -24,12 +25,9 @@ def main():
                 date = datetime.datetime.now().strftime("%d/%m/%Y")
                 amount = int(args.amount)
                 description = args.description
-                new_expense = {
-                    "Date": date,
-                    "Amount": amount,
-                    "Description": description
-                }
+                new_expense = Expense(date,description,amount)
                 add_expense(new_expense)
+
             case "delete":
                 if not args.id:
                     print("Please provide an ID for the expense to delete!")
@@ -58,8 +56,7 @@ def main():
                 if not args.id:
                     print("Please provide the id for the expense to update!")
                     exit()
-                if args.description:
-                    
+
 
 
         
@@ -102,8 +99,7 @@ def list_expenses():
 
 
 def add_expense(expense):
-    amount = expense["Amount"]
-    if int(expense["Amount"]) <= 0:
+    if expense.get_amount() <= 0:
         print("Impossible to add an expense with amount zero or negative")
     else:
         file_json = json.load(open("expenses.json"))
@@ -114,9 +110,9 @@ def add_expense(expense):
         print(id_to_add)
         new_expense = {
             "ID" : id_to_add,
-            "Date": expense["Date"],
-            "Description": expense["Description"],
-            "Amount": expense["Amount"]
+            "Date": expense.get_date(),
+            "Description": expense.get_description(),
+            "Amount": expense.get_amount()
         }
         transactions+=[new_expense]
         file_json["transactions"] = transactions
@@ -127,10 +123,3 @@ def add_expense(expense):
 # __name__
 if __name__=="__main__":
     main()
-    new_expense = json.loads("""{
-        "ID": 4,
-        "Date": "01/01/1999",
-        "Description": "Ciao",
-        "Amount": 10
-                             }"""
-)

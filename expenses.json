@@ -53,6 +53,18 @@
             "Date": "05/03/2025",
             "Description": "Spesa piccolina",
             "Amount": 123
+        },
+        {
+            "ID": 12,
+            "Date": "05/03/2025",
+            "Description": "Con oggetto!",
+            "Amount": 40
+        },
+        {
+            "ID": 13,
+            "Date": "05/03/2025",
+            "Description": "Con oggetto parte due",
+            "Amount": 40
         }
     ]
 }
